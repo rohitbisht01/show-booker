@@ -38,7 +38,7 @@ export const protectedProcedure = (...roles: Role[]) =>
 
     return next({
       ctx: {
-        session: { ...ctx.session, user: ctx.session.user },
+        session: { ...ctx.session },
       },
     })
   })
