@@ -24,6 +24,12 @@ export const protectedProcedure = (...roles: Role[]) =>
     const userId = (await ctx.session).userId
     console.log('user id', userId)
 
+    if (!userId) {
+      throw new Error('User ID is required')
+    }
+
+    await authorizeUser(userId, roles)
+
     if (!ctx.session || !(await ctx.session).userId) {
       throw new TRPCError({ code: 'UNAUTHORIZED' })
     }
