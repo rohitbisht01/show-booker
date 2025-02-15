@@ -1,9 +1,8 @@
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '..'
+import { createTRPCRouter } from '..'
+import { movieRouter } from './movies'
 
 export const appRouter = createTRPCRouter({
-  hello: publicProcedure.query(() => {
-    return { name: 'News', age: 'lore' }
-  }),
+  movies: movieRouter,
 })
 
 export type AppRouter = typeof appRouter

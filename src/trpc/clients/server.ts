@@ -19,16 +19,25 @@ const createContext = cache(async () => {
 export const trpcServer = createTRPCProxyClient<AppRouter>({
   links: [
     () =>
-      ({ op: { input, path, type } }) =>
+      ({ op: { path, type, input } }) =>
         observable((observer) => {
           createContext()
             .then((ctx) => {
+              console.log(
+                `path, type , input,appRouter._def.procedures
+
+                  `,
+                path,
+                type,
+                input,
+                appRouter._def.procedures,
+              )
               return callProcedure({
                 ctx,
                 path,
-                procedures: appRouter._def.procedures,
-                rawInput: input,
                 type,
+                rawInput: input,
+                procedures: appRouter._def.procedures,
               })
             })
             .then((data) => {
