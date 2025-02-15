@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Recursive } from 'next/font/google'
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
+import { TRPCReactProvider } from '@/trpc/clients/client'
 
 const recursive = Recursive({
   subsets: ['latin'], // Ensures support for Latin characters
@@ -21,9 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={`${recursive.className}`}>{children}</body>
-      </html>
+      <TRPCReactProvider>
+        <html lang="en">
+          <body className={`${recursive.className}`}>{children}</body>
+        </html>
+      </TRPCReactProvider>
     </ClerkProvider>
   )
 }
